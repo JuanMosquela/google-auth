@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const passport = require("passport");
 const dotenv = require("dotenv").config();
-const session = require("express-session");
+const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 
@@ -11,13 +11,11 @@ const app = express();
 
 app.use(cookieParser());
 app.use(
-  session({
-    secret: "clave-secreta",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 60000,
-    },
+  cookieSession({
+    name: "session",
+    keys: ["key1secret, key2secret"],
+
+    maxAge: 24 * 60 * 60 * 1000,
   })
 );
 
